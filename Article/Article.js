@@ -89,25 +89,105 @@ const data = [
 ];
 
 /* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
+ <div class="article">
+ <h2>{title of the article}</h2>
+ <p class="date">{date of the article}</p>
+ {three separate paragraph elements}
+ <span class='expandButton'></span>
+</div>*/ 
 
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+  // Hint: You will need to use createElement more than once here!
+  
+  // Creating Elements here step by step for better understanding creating from the data above. 
 
-    <span class='expandButton'></span>
-  </div>
+// Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
 
-  Hint: You will need to use createElement more than once here!
+  // Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
+  // Step 3: Don't forget to return something from your function!
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
-  Step 3: Don't forget to return something from your function!
+  // Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
 
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-*/
+  
+  // Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+ 
+
+  function componentCreator(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+    // create elements
+    let articleDiv = document.createElement('div');
+    let addH2 = document.createElement('h1');
+    let addDate = document.createElement('p');
+    let addP1 = document.createElement('p');
+    let addP2 = document.createElement('p');
+    let addP3 = document.createElement('p');
+    let addSpan = document.createElement('span');
+    
+    // close button stretch
+    let closeButton = document.createElement('button');
+  
+    // append children
+    articleDiv.appendChild(addH2);
+    articleDiv.appendChild(addDate);
+    articleDiv.appendChild(addP1);
+    articleDiv.appendChild(addP2);
+    articleDiv.appendChild(addP3);
+    articleDiv.appendChild(addSpan);
+    articleDiv.appendChild(closeButton);
+  
+    // add classes
+    articleDiv.classList.add('article');
+    addDate.classList.add('date');
+    addSpan.classList.add('expandButton');
+    closeButton.classList.add('close');
+  
+    // add text content
+    addH2.textContent = title;
+    addDate.textContent = date;
+    addP1.textContent = firstParagraph;
+    addP2.textContent = secondParagraph;
+    addP3.textContent = thirdParagraph;
+    addSpan.textContent = 'click for more';
+    // expand.textContent = '\u25BC';
+    closeButton.textContent = 'Remove Article';
+  
+    // add event listeners
+    addSpan.addEventListener('click', () => {
+      articleDiv.classList.toggle('article-open');
+      testClosingArticle();
+    })
+  
+    closeButton.addEventListener('click', event => {
+      articleDiv.remove();
+    })
+  
+    function testClosingArticle() {
+      if (articleDiv.classList.contains('article-open')) {
+        addSpan.textContent = 'click for less';
+      } else {
+        addSpan.textContent = 'click for more';
+      }
+    }
+  
+    return articleDiv;
+  }
+  
+  let articlesContainer = document.querySelector('.articles');
+  
+  data.forEach(item => {
+    articlesContainer.appendChild(
+      componentCreator(
+        item.title,
+        item.date,
+        item.firstParagraph,
+        item.secondParagraph,
+        item.thirdParagraph
+      )
+    )
+  });
+  
+  console.log(componentCreator());
+  
+  
