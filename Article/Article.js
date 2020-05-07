@@ -150,7 +150,7 @@ const data = [
     addP2.textContent = secondParagraph;
     addP3.textContent = thirdParagraph;
     addSpan.textContent = 'click for more';
-    // expand.textContent = '\u25BC';
+   
     closeButton.textContent = 'Remove Article';
   
     // add event listeners
